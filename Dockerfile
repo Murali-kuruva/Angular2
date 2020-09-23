@@ -1,8 +1,8 @@
-FROM node:12-alpine as node
-WORKDIR /app
-COPY package.json /app
-RUN npm install
+FROM node:9.6.1
+RUN mkdir /user/src/app
+WORKDIR /user/src/app
+RUN npm install -g @angular/cli
 
-COPY . .
+COPY . /user/src/app
 FROM nginx:1.17.1-alpine
-COPY --from=node /app/dist/app /usr/share/nginx/html
+CMD ng serve --host 0.0.0 --port 4200
